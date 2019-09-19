@@ -47,7 +47,6 @@ int main() {
 	auto myCallback = std::make_shared<testSerialCallback>();
 	sp->addCallback(myCallback);
 	//If here then we better spawn a thread
-	std::thread thread_1(&SimpleSerialName::Comms::processRead, sp);
 	std::cout<<__PRETTY_FUNCTION__<<" : Serial port Running... Press q to quit\r\n";
 	char option;
 
@@ -70,8 +69,6 @@ int main() {
 	}
 	//We are here so do graceful exit
 	std::cout<<__PRETTY_FUNCTION__<<" : Closing Application\r\n";
-	sp->stopRead();
-	thread_1.join();
 
 	return 0;
 }
