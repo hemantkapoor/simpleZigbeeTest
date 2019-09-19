@@ -15,6 +15,8 @@
 #include"simpleSerial/callback/BaseCallback.h"
 #include"simpleSerial/utility/Utility.h"
 
+#include "simpleZigbee/zigbeeManager/ZigbeeManager.h"
+
 
 char GetUserOption()
 {
@@ -41,6 +43,15 @@ int main() {
 	{
 		std::cout<<__PRETTY_FUNCTION__<<" : Cannot access serial port\r\n";
 		return -1;
+	}
+
+	auto zibMan = std::make_unique<SimpleZigbeeName::ZigbeeManager>(sp);
+
+	//Lets try to initialize sigbee
+	if(zibMan->initialise() == false)
+	{
+		std::cout<<__PRETTY_FUNCTION__<<" : Initialisation of zigbee module failed \r\n";
+		return -2;
 	}
 
 	//Lets add a callback

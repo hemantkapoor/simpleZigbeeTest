@@ -5,6 +5,9 @@ project(simpleZigbeeTest)
 file(GLOB_RECURSE sources      src/*.cpp src/*.h)
 add_library(SimpleSerial "")
 add_subdirectory(src/simpleSerial)
+add_library(SimpleZigbee "")
+add_subdirectory(src/simpleZigbee)
+
 
 # Set the output folder where your program will be created
 set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/bin)
