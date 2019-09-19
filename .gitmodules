@@ -1,0 +1,6 @@
+[submodule "src/simpleZigbee"]
+	path = src/simpleZigbee
+	url = https://github.com/hemantkapoor/simpleZigbee.git
+[submodule "src/simpleSerial"]
+	path = src/simpleSerial
+	url = https://github.com/hemantkapoor/simpleSerial.git
