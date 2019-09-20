@@ -12,7 +12,7 @@
 #include <vector>
 #include <future>
 #include"simpleSerial/comms/Comms.h"
-#include "simpleZigbee/zigbeeManager/ZigbeeManager.h"
+#include "simpleZigbee/manager/Manager.h"
 
 
 char GetUserOption()
