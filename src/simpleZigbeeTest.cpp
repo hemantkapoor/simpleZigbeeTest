@@ -23,12 +23,11 @@ char GetUserOption()
 }
 
 int main() {
-	std::cout << "!!!Hello World!!!" << std::endl; // prints !!!Hello World!!!
-	std::string serialPath =  R"(/dev/pts/1)";
+	std::string serialPath =  R"(/dev/ttyACM0)";
 	auto sp = std::make_shared<SimpleSerialName::Comms>(serialPath);
 	if(sp->startComms() == false)
 	{
-		std::cout<<__PRETTY_FUNCTION__<<" : Cannot access serial port\r\n";
+		std::cout<<__PRETTY_FUNCTION__<<" : Cannot access serial port " <<serialPath <<std::endl;
 		return -1;
 	}
 
