@@ -32,15 +32,13 @@ int main() {
 	}
 	auto zibMan = std::make_unique<SimpleZigbeeName::ZigbeeManager>(std::move(sp));
 
-
-	//Lets try to initialize sigbee
+	std::cout<<__PRETTY_FUNCTION__<<" : Press q to quit\r\n";
+	//Lets try to initialize Zigbee
 	if(zibMan->initialise() == false)
 	{
 		std::cout<<__PRETTY_FUNCTION__<<" : Initialisation of zigbee module failed \r\n";
 		return -2;
 	}
-	std::cout<<__PRETTY_FUNCTION__<<" : Serial port Running... Press q to quit\r\n";
-
 	char option;
 	{
 		auto future = std::async(std::launch::async, GetUserOption);
