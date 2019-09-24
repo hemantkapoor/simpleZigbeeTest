@@ -4,3 +4,6 @@
 [submodule "src/simpleSerial"]
 	path = src/simpleSerial
 	url = https://github.com/hemantkapoor/simpleSerial.git
+[submodule "src/simpleDebug"]
+	path = src/simpleDebug
+	url = https://github.com/hemantkapoor/simpleDebug.git
