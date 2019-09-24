@@ -11,8 +11,14 @@
 #include <thread>
 #include <vector>
 #include <future>
+#include <filesystem>
+#include <string>
+#include "simpleDebug/SimpleDebug.h"
 #include"simpleSerial/comms/Comms.h"
 #include "simpleZigbee/manager/Manager.h"
+
+namespace fs = std::filesystem;
+
 
 
 char GetUserOption()
@@ -22,12 +28,27 @@ char GetUserOption()
     return option;
 }
 
-int main() {
-	std::string serialPath =  R"(/dev/ttyACM0)";
+int main()
+{
+	//Lets get current directory
+
+	 //std::cout << "Current path is " << fs::current_path().string() << '\n';
+	//auto pwd = fs::current_path();
+	//auto newDir = pwd / "debugLog";
+	//fs::create_directory("newDir");
+	//auto debugFile = newDir / "debugLog.txt";
+
+	auto console = SimpleDebugName::SimpleDebug::instance();
+	std::string debugFile("debugLog.txt");
+	console->setDebugFile(debugFile);
+	console->setDebugMaskConsole(SimpleDebugName::LOG);
+
+	std::string serialPath =  R"(/dev/ttyACM1)";
 	auto sp = std::make_unique<SimpleSerialName::Comms>(serialPath);
 	if(sp->startComms() == false)
 	{
-		std::cout<<__PRETTY_FUNCTION__<<" : Cannot access serial port " <<serialPath <<std::endl;
+		//std::cout<<__PRETTY_FUNCTION__<< std::string(__PRETTY_FUNCTION__) + " : Cannot access serial port " <<serialPath <<std::endl;
+		console->log(SimpleDebugName::CRITICAL_ERROR, std::string(__PRETTY_FUNCTION__) + " : Cannot access serial port " + serialPath);
 		return -1;
 	}
 	auto zibMan = std::make_unique<SimpleZigbeeName::ZigbeeManager>(std::move(sp));

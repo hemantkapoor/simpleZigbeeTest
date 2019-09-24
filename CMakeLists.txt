@@ -10,6 +10,6 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 set(CMAKE_BUILD_TYPE Debug)
 
 add_executable(simpleZigbeeTest ${sources})
-target_compile_options(simpleZigbeeTest PUBLIC -g -std=c++1y -Wall -Wfloat-conversion)
+target_compile_options(simpleZigbeeTest PUBLIC -g -std=c++17 -Wall -Wfloat-conversion)
 TARGET_LINK_LIBRARIES(simpleZigbeeTest PUBLIC -lpthread)
 
