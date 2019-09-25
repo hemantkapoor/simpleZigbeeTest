@@ -11,13 +11,13 @@
 #include <thread>
 #include <vector>
 #include <future>
-#include <filesystem>
+//#include <filesystem>
 #include <string>
 #include "simpleDebug/SimpleDebug.h"
 #include"simpleSerial/comms/Comms.h"
 #include "simpleZigbee/manager/Manager.h"
 
-namespace fs = std::filesystem;
+//namespace fs = std::filesystem;
 
 
 
@@ -38,26 +38,25 @@ int main()
 	//fs::create_directory("newDir");
 	//auto debugFile = newDir / "debugLog.txt";
 
-	auto console = SimpleDebugName::SimpleDebug::instance();
+	auto m_debug = SimpleDebugName::SimpleDebug::instance();
 	std::string debugFile("debugLog.txt");
-	console->setDebugFile(debugFile);
-	console->setDebugMaskConsole(SimpleDebugName::LOG);
+	m_debug->setDebugFile(debugFile);
+	m_debug->setDebugMaskConsole(SimpleDebugName::LOG);
 
 	std::string serialPath =  R"(/dev/ttyACM1)";
 	auto sp = std::make_unique<SimpleSerialName::Comms>(serialPath);
 	if(sp->startComms() == false)
 	{
-		//std::cout<<__PRETTY_FUNCTION__<< std::string(__PRETTY_FUNCTION__) + " : Cannot access serial port " <<serialPath <<std::endl;
-		console->log(SimpleDebugName::CRITICAL_ERROR, std::string(__PRETTY_FUNCTION__) + " : Cannot access serial port " + serialPath);
+		m_debug->log(SimpleDebugName::CRITICAL_ERROR, std::string(__PRETTY_FUNCTION__) + " : Cannot access serial port " + serialPath);
 		return -1;
 	}
 	auto zibMan = std::make_unique<SimpleZigbeeName::ZigbeeManager>(std::move(sp));
 
-	std::cout<<__PRETTY_FUNCTION__<<" : Press q to quit\r\n";
+	m_debug->log(SimpleDebugName::CRITICAL_ERROR, std::string(__PRETTY_FUNCTION__) + " : Press q to quit\r\n");
 	//Lets try to initialize Zigbee
 	if(zibMan->initialise() == false)
 	{
-		std::cout<<__PRETTY_FUNCTION__<<" : Initialisation of zigbee module failed \r\n";
+		m_debug->log(SimpleDebugName::CRITICAL_ERROR, std::string(__PRETTY_FUNCTION__) + " : Initialisation of zigbee module failed \r\n");
 		return -2;
 	}
 	char option;
@@ -74,7 +73,6 @@ int main()
 		}
 	}
 	//We are here so do graceful exit
-	std::cout<<__PRETTY_FUNCTION__<<" : Closing Application\r\n";
-
+	m_debug->log(SimpleDebugName::LOG, std::string(__PRETTY_FUNCTION__) + " : Closing Application\r\n");
 	return 0;
 }
