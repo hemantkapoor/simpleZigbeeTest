@@ -11,13 +11,13 @@
 #include <thread>
 #include <vector>
 #include <future>
-//#include <filesystem>
+#include <experimental/filesystem>
 #include <string>
 #include "simpleDebug/SimpleDebug.h"
 #include"simpleSerial/comms/Comms.h"
 #include "simpleZigbee/manager/Manager.h"
 
-//namespace fs = std::filesystem;
+namespace fs = std::experimental::filesystem;
 
 
 
@@ -33,15 +33,17 @@ int main()
 	//Lets get current directory
 
 	 //std::cout << "Current path is " << fs::current_path().string() << '\n';
-	//auto pwd = fs::current_path();
-	//auto newDir = pwd / "debugLog";
-	//fs::create_directory("newDir");
-	//auto debugFile = newDir / "debugLog.txt";
+	auto pwd = fs::current_path();
+	auto newDir = pwd / "debugLog";
+	fs::create_directory(newDir);
+	auto debugFile = newDir / "debugLog.txt";
 
 	auto m_debug = SimpleDebugName::SimpleDebug::instance();
-	std::string debugFile("debugLog.txt");
+	//std::string debugFile("debugLog.txt");
 	m_debug->setDebugFile(debugFile);
 	m_debug->setDebugMaskConsole(SimpleDebugName::LOG);
+
+	m_debug->log(SimpleDebugName::NONE, std::string(__PRETTY_FUNCTION__) + " : Starting Simple Zigbee Application\r\n");
 
 	std::string serialPath =  R"(/dev/ttyACM1)";
 	auto sp = std::make_unique<SimpleSerialName::Comms>(serialPath);
@@ -52,7 +54,7 @@ int main()
 	}
 	auto zibMan = std::make_unique<SimpleZigbeeName::ZigbeeManager>(std::move(sp));
 
-	m_debug->log(SimpleDebugName::CRITICAL_ERROR, std::string(__PRETTY_FUNCTION__) + " : Press q to quit\r\n");
+	m_debug->log(SimpleDebugName::NONE, std::string(__PRETTY_FUNCTION__) + " : Press q to quit\r\n");
 	//Lets try to initialize Zigbee
 	if(zibMan->initialise() == false)
 	{
