@@ -31,15 +31,12 @@ char GetUserOption()
 int main()
 {
 	//Lets get current directory
-
-	 //std::cout << "Current path is " << fs::current_path().string() << '\n';
 	auto pwd = fs::current_path();
 	auto newDir = pwd / "debugLog";
 	fs::create_directory(newDir);
 	auto debugFile = newDir / "debugLog.txt";
 
 	auto m_debug = SimpleDebugName::SimpleDebug::instance();
-	//std::string debugFile("debugLog.txt");
 	m_debug->setDebugFile(debugFile);
 	m_debug->setDebugMaskConsole(SimpleDebugName::LOG);
 
@@ -55,7 +52,7 @@ int main()
 	auto zibMan = std::make_unique<SimpleZigbeeName::ZigbeeManager>(std::move(sp));
 
 	m_debug->log(SimpleDebugName::NONE, std::string(__PRETTY_FUNCTION__) + " : Press q to quit\r\n");
-	//Lets try to initialize Zigbee
+	//Lets try to initialise Zigbee
 	if(zibMan->initialise() == false)
 	{
 		m_debug->log(SimpleDebugName::CRITICAL_ERROR, std::string(__PRETTY_FUNCTION__) + " : Initialisation of zigbee module failed \r\n");
