@@ -42,7 +42,7 @@ int main()
 
 	m_debug->log(SimpleDebugName::NONE, std::string(__PRETTY_FUNCTION__) + " : Starting Simple Zigbee Application\r\n");
 
-	std::string serialPath =  R"(/dev/ttyACM1)";
+	std::string serialPath =  R"(/dev/ttyACM0)";
 	auto sp = std::make_unique<SimpleSerialName::Comms>(serialPath);
 	if(sp->startComms() == false)
 	{
