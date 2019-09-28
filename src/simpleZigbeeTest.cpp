@@ -38,7 +38,7 @@ int main()
 
 	auto m_debug = SimpleDebugName::SimpleDebug::instance();
 	m_debug->setDebugFile(debugFile);
-	m_debug->setDebugMaskConsole(SimpleDebugName::LOG);
+	//m_debug->setDebugMaskConsole(SimpleDebugName::LOG);
 
 	m_debug->log(SimpleDebugName::NONE, std::string(__PRETTY_FUNCTION__) + " : Starting Simple Zigbee Application\r\n");
 
