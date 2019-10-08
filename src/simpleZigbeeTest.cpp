@@ -58,7 +58,7 @@ int main()
 
 	auto m_debug = SimpleDebugName::SimpleDebug::instance();
 	m_debug->setDebugFile(debugFile);
-	//m_debug->setDebugMaskConsole(SimpleDebugName::LOG);
+	m_debug->setDebugMaskConsole(SimpleDebugName::LOG);
 
 	m_debug->log(SimpleDebugName::NONE, std::string(__PRETTY_FUNCTION__) + " : Starting Simple Zigbee Application\r\n");
 
@@ -71,13 +71,15 @@ int main()
 	}
 	auto zibMan = std::make_unique<SimpleZigbeeName::ZigbeeManager>(std::move(sp));
 
-	m_debug->log(SimpleDebugName::NONE, std::string(__PRETTY_FUNCTION__) + " : Press q to quit\r\n");
+	m_debug->log(SimpleDebugName::NONE, std::string(__PRETTY_FUNCTION__) + " : Initialising Zigbee....\r\n");
 	//Lets try to initialise Zigbee
 	if(zibMan->initialise() == false)
 	{
 		m_debug->log(SimpleDebugName::CRITICAL_ERROR, std::string(__PRETTY_FUNCTION__) + " : Initialisation of zigbee module failed \r\n");
 		return -2;
 	}
+	m_debug->log(SimpleDebugName::NONE, std::string(__PRETTY_FUNCTION__) + " : Zigbee Initialised....\r\n");
+	m_debug->log(SimpleDebugName::NONE, std::string(__PRETTY_FUNCTION__) + " : Press q to quit\r\n");
 	char option;
 	{
 		auto future = std::async(std::launch::async, GetUserOption);
